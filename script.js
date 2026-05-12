@@ -37,7 +37,7 @@
   const LETTER_TEXT =
 `My baby,
 
-Once upon a time, in a world full of distance and different skies, we found each other. And somehow you became my favorite part of every day. In only five months, you turned ordinary moments into magic. You made my heart feel safe, my soul feel understood, and my future feel brighter. Even when the nights feel long and the miles try to test us, I always believe in us. Because what we have isn't just love, it's a story worth fighting for - a story I want to keep writing with you, page after page, chapter after chapter, for all the months and years to come.
+Once upon a time, in a world full of distance and different skies, we found each other. And somehow you became my favorite part of every day. In only five months, you turned ordinary moments into magic. You made my heart feel safe, my soul feel understood, and my future feel brighter. Even when the nights feel long and the miles try to test us, I always believe in us. Because what we have isn't just love, it's a story worth fighting for.
 
 So today, I want you to know this:
 
