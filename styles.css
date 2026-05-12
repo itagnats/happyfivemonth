@@ -127,7 +127,7 @@ body {
   max-width: 720px;
   font-family: 'Cormorant Garamond', serif;
   font-style: italic;
-  font-size: clamp(10px, 3.4vw, 14px);
+  font-size: clamp(10px, 3vw, 10px);
   color: #4a2c12;
   text-align: center;
   line-height: 1.45;
@@ -235,7 +235,7 @@ body {
 .month-tag .tag-theme { display: block; line-height: 1.1; }
 .month-tag .tag-num {
   font-family: 'Cinzel', serif;
-  font-size: clamp(8px, 2.4vw, 10px);
+  font-size: clamp(8px, 2.2vw, 10px);
   color: #4a2c12;
   letter-spacing: 0.4px;
   font-weight: 600;
@@ -243,7 +243,7 @@ body {
 .month-tag .tag-theme {
   font-family: 'Cormorant Garamond', serif;
   font-style: italic;
-  font-size: clamp(7px, 2vw, 9px);
+  font-size: clamp(7px, 1.5vw, 9px);
   line-height: 1.05;
   color: #6b4422;
   margin-top: 1px;
@@ -328,7 +328,7 @@ body {
   padding: 3px 10px;
   font-family: 'Cormorant Garamond', serif;
   font-style: italic;
-  font-size: clamp(10px, 3vw, 13px);
+  font-size: clamp(10px, 2.8vw, 10px);
   color: #4a2c12;
   z-index: 6;
   box-shadow: 0 3px 10px rgba(60, 35, 10, 0.25);
