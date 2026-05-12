@@ -1,0 +1,569 @@
+/* =====================================================
+   Our Fairy Tale — 5 Months
+   Mobile-first. Stage = painted background image with
+   percentage-positioned overlays. Aspect-ratio keeps
+   everything aligned at every viewport size.
+   ===================================================== */
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0; padding: 0;
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  color: #4a2c12;
+  background: #0e1a0a;
+  min-height: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  overflow-x: hidden;
+  /* iOS Safari: avoid 100vh address-bar glitch */
+  min-height: 100svh;
+}
+
+/* ---- Sections ---- */
+.section {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  background: radial-gradient(ellipse at 50% 30%, #2c4a26 0%, #1a2f15 60%, #0e1c0a 100%);
+}
+
+/* ---- Stage container: keeps the painted bg's aspect ratio always intact.
+        Width is bounded by available width OR available height * aspect, so
+        the stage fits whether the device is portrait, landscape, or desktop. ---- */
+.stage {
+  position: relative;
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+  isolation: isolate;
+}
+.cover-stage {
+  aspect-ratio: 1024 / 800;
+  max-width: min(100%, calc((100svh - 24px) * 1.28));
+}
+.game-stage {
+  aspect-ratio: 1024 / 768;
+  max-width: min(100%, calc((100svh - 24px) * 1.3333));
+}
+
+.stage .bg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* ---- Hotspots / interactive zones ---- */
+.hotspot {
+  position: absolute;
+  cursor: pointer;
+  background: transparent;
+  border: 0; padding: 0; margin: 0; outline: none;
+  z-index: 5;
+  -webkit-tap-highlight-color: transparent;
+}
+.hotspot:focus-visible {
+  outline: 2px solid rgba(255, 220, 130, 0.8);
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+/* =====================================================
+   COVER — Begin Our Story
+   ===================================================== */
+.begin-hotspot {
+  left: 16%; top: 73.5%;
+  width: 25%; height: 8.5%;
+  border-radius: 999px;
+  transition: transform 0.2s ease;
+}
+.begin-hotspot::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 50%,
+              rgba(255, 230, 150, 0) 0%, rgba(255, 230, 150, 0.5) 40%, rgba(255, 230, 150, 0) 80%);
+  border-radius: 999px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.begin-hotspot:hover { transform: scale(1.04); }
+.begin-hotspot:hover::before,
+.begin-hotspot:focus-visible::before {
+  opacity: 1; animation: shimmer 2.4s ease-in-out infinite;
+}
+@keyframes shimmer { 0%,100% { opacity: 0.6; } 50% { opacity: 1; } }
+
+.scroll-hint {
+  position: absolute;
+  bottom: 10px;
+  left: 50%; transform: translateX(-50%);
+  font-style: italic;
+  color: rgba(255, 240, 200, 0.7);
+  font-size: clamp(5.5px, 1.6vw, 7px);
+  display: flex; align-items: center; gap: 6px;
+  animation: bob 2s ease-in-out infinite;
+  pointer-events: none;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+}
+.scroll-hint .arrow { transform: rotate(90deg); }
+@keyframes bob {
+  0%,100% { transform: translate(-50%, 0); opacity: 0.65; }
+  50%     { transform: translate(-50%, 6px); opacity: 1; }
+}
+
+
+/* GARDEN — flowing status text (replaces the old bordered counter) */
+.counter-overlay {
+  position: absolute;
+  left: 50%; top: 21%;
+  transform: translateX(-50%);
+  width: 80%;
+  max-width: 720px;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(9px, 2.2vw, 11px);
+  color: #4a2c12;
+  text-align: center;
+  line-height: 1.45;
+  z-index: 6;
+  pointer-events: none;
+  text-shadow: 0 1px 0 rgba(255, 245, 220, 0.7);
+  transition: opacity 0.5s ease;
+}
+.counter-overlay.fade { opacity: 0; }
+
+/* =====================================================
+   GARDEN — pot slots
+   ===================================================== */
+.pot-slot {
+  position: absolute;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  z-index: 4;
+}
+.pot-slot:focus-visible {
+  outline: 2px solid rgba(255, 220, 130, 0.6);
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+.pot-stack {
+  position: absolute;
+  inset: 0;
+}
+.pot-stack img {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 88%;
+  height: auto;
+  opacity: 0;
+  transition: opacity 0.55s ease, transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+  pointer-events: none;
+  filter: drop-shadow(0 6px 8px rgba(60, 35, 10, 0.35));
+}
+.pot-stack .s-bloom-flower {
+  width: 95%;
+  bottom: 26%;
+  transform: translateX(-50%) translateY(8px) scale(0.85);
+  z-index: 3;
+  filter: drop-shadow(0 4px 6px rgba(60, 35, 10, 0.35));
+}
+
+.pot-slot[data-stage="0"] .s-empty       { opacity: 1; }
+.pot-slot[data-stage="1"] .s-soil        { opacity: 1; }
+.pot-slot[data-stage="2"] .s-seed        { opacity: 1; }
+.pot-slot[data-stage="3"] .s-sprout      { opacity: 1; }
+.pot-slot[data-stage="4"] .s-bloom-pot   { opacity: 1; }
+.pot-slot[data-stage="4"] .s-bloom-flower {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0) scale(1);
+}
+
+@keyframes potPulse {
+  0%   { transform: translateX(-50%) scale(1); }
+  50%  { transform: translateX(-50%) scale(1.06); }
+  100% { transform: translateX(-50%) scale(1); }
+}
+.pot-slot.advancing .pot-stack img:not(.s-bloom-flower) {
+  animation: potPulse 0.5s ease-out;
+}
+
+.pot-slot.bloomed::before {
+  content: '';
+  position: absolute;
+  bottom: 8%; left: 50%;
+  width: 90%; height: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at 50% 60%,
+              rgba(255, 230, 150, 0.32) 0%, rgba(255, 220, 130, 0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: bloomGlow 2.6s ease-in-out infinite;
+  z-index: 1;
+}
+@keyframes bloomGlow {
+  0%,100% { opacity: 0.35; transform: translateX(-50%) scale(0.95); }
+  50%     { opacity: 0.55; transform: translateX(-50%) scale(1.06); }
+}
+
+/* MONTH TAG CHIPS */
+.month-tag {
+  position: absolute;
+  bottom: -6%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, #faecbe 0%, #ebcf86 100%);
+  border: 1px solid #a8853a;
+  border-radius: 6px;
+  padding: 3px 5px 4px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(60, 35, 10, 0.3),
+              inset 0 1px 0 rgba(255, 255, 220, 0.55);
+  z-index: 5;
+}
+.month-tag .tag-num,
+.month-tag .tag-theme { display: block; line-height: 1.1; }
+.month-tag .tag-num {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(7px, 1.8vw, 9px);
+  color: #4a2c12;
+  letter-spacing: 0.4px;
+  font-weight: 600;
+}
+.month-tag .tag-theme {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(5.5px, 1.4vw, 7px);
+  line-height: 1.05;
+  color: #6b4422;
+  margin-top: 1px;
+}
+
+
+/* PLANT HINT (above pot before first click) */
+.plant-hint {
+  position: absolute;
+  bottom: -22%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(6.5px, 1.4vw, 8px);
+  color: #6b4422;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.4s ease;
+  animation: hintBob 2.4s ease-in-out infinite;
+  z-index: 4;
+}
+@keyframes hintBob {
+  0%,100% { transform: translate(-50%, 0); opacity: 0.75; }
+  50%     { transform: translate(-50%, 3px); opacity: 1; }
+}
+.pot-slot:not([data-stage="0"]) .plant-hint { opacity: 0; }
+
+/* =====================================================
+   ENVELOPE
+   ===================================================== */
+.envelope {
+  position: absolute;
+  background: transparent;
+  border: 0; padding: 0;
+  cursor: not-allowed;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: grayscale(0.1) brightness(0.45) drop-shadow(0 6px 12px rgba(60, 35, 10, 0.45));
+  transition: filter 0.7s ease, transform 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.envelope .env-img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.envelope.unlocked {
+  cursor: pointer;
+  filter: grayscale(0) brightness(1) drop-shadow(0 10px 20px rgba(184, 137, 58, 0.55));
+}
+.envelope.unlocked:hover { transform: translateY(-3px) scale(1.04); }
+
+.env-glow {
+  left:20%;
+  position: absolute;
+  inset: -20%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 230, 150, 0.85) 0%, transparent 65%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+  z-index: -1;
+}
+.envelope.unlocked .env-glow {
+  opacity: 1;
+  animation: bloomGlow 2.4s ease-in-out infinite;
+}
+
+.envelope-status {
+  position: absolute;
+  left: 50%;
+  bottom: 4%;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, #f6e3b0 0%, #ebcf86 100%);
+  border: 1px solid rgba(124, 90, 31, 0.5);
+  border-radius: 8px;
+  padding: 3px 10px;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(7px, 1.8vw, 9px);
+  color: #4a2c12;
+  z-index: 6;
+  box-shadow: 0 3px 10px rgba(60, 35, 10, 0.25);
+  max-width: 85%;
+  width: max-content;
+  text-align: center;
+  line-height: 1.25;
+}
+.envelope-status.unlocked {
+  font-style: normal;
+  font-weight: 600;
+  color: #7c5a1f;
+  letter-spacing: 0.4px;
+  background: linear-gradient(180deg, #fff4cc 0%, #f0d585 100%);
+  animation: bloomGlow 2.4s ease-in-out infinite;
+}
+
+
+/* =====================================================
+   LETTER OVERLAY — handwritten paper + typewriter + pen
+   ===================================================== */
+.letter-overlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 30%, rgba(80, 50, 20, 0.7) 0%, rgba(20, 10, 4, 0.92) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  opacity: 0;
+  visibility: hidden;             /* hide subtree from hit-testing when closed */
+  pointer-events: none;
+  transition: opacity 0.5s ease, visibility 0s linear 0.5s;
+  padding: 16px;
+  overflow-y: auto;
+}
+.letter-overlay.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 0.5s ease, visibility 0s linear 0s;
+}
+.letter-overlay.open .letter-text { pointer-events: auto; }
+.letter-text::-webkit-scrollbar { width: 0; height: 0; display: none; }
+
+
+/* The scroll keeps the letter image's portrait aspect ratio (1023x1537 ≈ 2:3) */
+.letter-scroll {
+  position: relative;
+  aspect-ratio: 1023 / 1537;
+  height: min(92svh, 96vh);
+  max-width: 96vw;
+  transform: translateY(40px) scale(0.96);
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  filter: drop-shadow(0 30px 90px rgba(0, 0, 0, 0.6));
+  cursor: pointer;
+}
+.letter-overlay.open .letter-scroll { transform: translateY(0) scale(1); }
+
+.letter-paper {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+  display: block;
+}
+.letter-paper.missing { display: none; }
+
+/* Handwritten text typed over the paper. Margins avoid the
+   decorative top/bottom and side gold borders. */
+.letter-text {
+  position: absolute;
+  top: 9%;
+  left: 14%;
+  right: 14%;
+  bottom: 16%;
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(7px, 1.6vw, 8.5px);
+  color: #3a2008;
+  line-height: 1.2;
+  letter-spacing: 0.2px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;          /* Firefox: hide scrollbar */
+  -ms-overflow-style: none;       /* old IE/Edge */
+  pointer-events: none;
+  text-shadow: 0 0.5px 0 rgba(255, 245, 220, 0.4);
+}
+
+/* Fountain pen — JS moves it so its tip sits at the current writing point. */
+.letter-pen {
+  position: absolute;
+  /* Pen size relative to paper width */
+  width: 18%;
+  left: 0; top: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  transform: rotate(-12deg);
+  transform-origin: 12% 88%; /* near the nib */
+  z-index: 5;
+  filter: drop-shadow(0 6px 10px rgba(60, 35, 10, 0.35));
+}
+.letter-pen.writing {
+  opacity: 1;
+  animation: penJitter 0.18s ease-in-out infinite;
+}
+@keyframes penJitter {
+  0%,100% { transform: rotate(-12deg) translateY(0); }
+  50%     { transform: rotate(-11deg) translateY(-1px); }
+}
+.letter-pen.done {
+  opacity: 0;
+}
+
+/* Tiny hint at the bottom telling the user they can tap to finish writing */
+.letter-skip-hint {
+  position: absolute;
+  bottom: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  color: rgba(255, 240, 200, 0.7);
+  font-size: clamp(7px, 2vw, 9px);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0.85;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  transition: opacity 0.4s ease;
+}
+.letter-scroll.writing-done .letter-skip-hint { opacity: 0; }
+
+.letter-close {
+  position: absolute;
+  top: -8px; right: -8px;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  border: 1px solid #7c5a1f;
+  background: rgba(255, 245, 215, 0.95);
+  color: #2e1a08;
+  font-family: 'Arial', sans-serif;        /* consistent × glyph */
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0 1px 0;                      /* tiny optical nudge so × looks centered */
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+  -webkit-tap-highlight-color: transparent;
+}
+.letter-close:hover { background: #e0b561; }
+
+/* Fallback when letter.png missing */
+.letter-fallback {
+  display: none;
+  position: absolute;
+  inset: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at 50% 0%, #fdf3d4 0%, #f4e1b3 60%, #e7cd8c 100%);
+  border: 4px double #7c5a1f;
+  border-radius: 14px;
+  color: #4a2c12;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(9px, 2.4vw, 12px);
+  padding: 24px;
+  text-align: center;
+  line-height: 1.5;
+}
+.letter-paper.missing ~ .letter-fallback { display: flex; }
+.letter-fallback code {
+  font-family: 'Courier New', monospace;
+  background: rgba(124, 90, 31, 0.15);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-style: normal;
+}
+
+
+/* Envelope glow — own animation so it stays aligned with the envelope */
+@keyframes envGlow {
+  0%, 100% { opacity: 0.75; transform: translateX(14%) scale(0.95); }
+  50%      { opacity: 1;    transform: translateX(14%) scale(1.06); }
+}
+.envelope.unlocked .env-glow { animation: envGlow 2.4s ease-in-out infinite !important; }
+
+/* =====================================================
+   RESPONSIVE TWEAKS
+   ===================================================== */
+
+/* Very narrow phones (portrait) */
+@media (max-width: 380px) {
+  .month-tag { padding: 2px 4px 3px; }
+  .month-tag .tag-num   { font-size: 8px; }
+  .month-tag .tag-theme { font-size: 7.5px; }
+  .plant-hint { font-size: 9px; }
+  .envelope-status { font-size: 10.5px; padding: 2px 8px; }
+}
+
+/* Tablet and up — give the stage more room */
+@media (min-width: 768px) {
+  .section { padding: 16px; }
+  .stage { border-radius: 10px; box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55); }
+  .cover-stage { max-width: min(880px, calc((100svh - 32px) * 1.28)); }
+  .game-stage  { max-width: min(880px, calc((100svh - 32px) * 1.3333)); }
+  .letter-close { top: 12px; right: 16px; box-shadow: none; }
+}
+
+/* Landscape phone fix: prevent the bottom edge of the painted card
+   getting cropped — let scrolling happen if needed. */
+@media (orientation: landscape) and (max-height: 500px) {
+  .section { padding: 4px; align-items: flex-start; }
+  .stage { margin-top: 4px; }
+  .month-tag { padding: 2px 4px 3px; }
+  .month-tag .tag-num   { font-size: 7px; }
+  .month-tag .tag-theme { font-size: 6.5px; }
+  .scroll-hint { font-size: 11px; bottom: 4px; }
+  
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  

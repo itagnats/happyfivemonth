@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Fairy Tale — 5 Months</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Dancing+Script:wght@600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- SECTION 1 — COVER -->
+  <section class="section section-cover">
+    <div class="stage cover-stage">
+      <img class="bg" src="assets/cover.jpg" alt="" />
+      <button class="hotspot begin-hotspot" id="begin-btn" type="button"
+              aria-label="Begin Our Story"></button>
+    </div>
+    <div class="scroll-hint" aria-hidden="true">
+      <span>Click Begin</span>
+
+    </div>
+  </section>
+
+  <!-- SECTION 2 — GARDEN GAME -->
+  <section class="section section-garden" id="garden">
+    <div class="stage game-stage">
+      <img class="bg" src="assets/garden-frame.png" alt="" />
+
+      <div class="counter-overlay" id="garden-status" aria-live="polite">
+        Click each pot to plant a seed and watch our garden bloom.
+      </div>
+
+      <div class="pot-slot" data-month="1" data-stage="0"
+           style="left: 4%; top: 19%; width: 16%; height: 47%;"
+           role="button" tabindex="0" aria-label="Plant Month 1: Our Beginning">
+        <div class="pot-stack">
+          <img class="s-empty"  src="assets/pot-empty.png"   alt="" />
+          <img class="s-soil"   src="assets/pot-soil.png"    alt="" />
+          <img class="s-seed"   src="assets/pot-seed.png"    alt="" />
+          <img class="s-sprout" src="assets/pot-sprout.png"  alt="" />
+          <img class="s-bloom-pot"    src="assets/pot-soil.png" alt="" />
+          <img class="s-bloom-flower" src="assets/flower-1-rose.png" alt="" />
+        </div>
+        <div class="month-tag">
+          <span class="tag-num">Month 1</span>
+          <span class="tag-theme">Our Beginning</span>
+        </div>
+        <div class="plant-hint">click to plant</div>
+      </div>
+
+      <div class="pot-slot" data-month="2" data-stage="0"
+           style="left: 22%; top: 19%; width: 16%; height: 47%;"
+           role="button" tabindex="0" aria-label="Plant Month 2: Growing Closer">
+        <div class="pot-stack">
+          <img class="s-empty"  src="assets/pot-empty.png"   alt="" />
+          <img class="s-soil"   src="assets/pot-soil.png"    alt="" />
+          <img class="s-seed"   src="assets/pot-seed.png"    alt="" />
+          <img class="s-sprout" src="assets/pot-sprout.png"  alt="" />
+          <img class="s-bloom-pot"    src="assets/pot-soil.png" alt="" />
+          <img class="s-bloom-flower" src="assets/flower-2-sunflower.png" alt="" />
+        </div>
+        <div class="month-tag">
+          <span class="tag-num">Month 2</span>
+          <span class="tag-theme">Growing Closer</span>
+        </div>
+        <div class="plant-hint">click to plant</div>
+      </div>
+
+      <div class="pot-slot" data-month="3" data-stage="0"
+           style="left: 40%; top: 19%; width: 16%; height: 47%;"
+           role="button" tabindex="0" aria-label="Plant Month 3: Stronger Together">
+        <div class="pot-stack">
+          <img class="s-empty"  src="assets/pot-empty.png"   alt="" />
+          <img class="s-soil"   src="assets/pot-soil.png"    alt="" />
+          <img class="s-seed"   src="assets/pot-seed.png"    alt="" />
+          <img class="s-sprout" src="assets/pot-sprout.png"  alt="" />
+          <img class="s-bloom-pot"    src="assets/pot-soil.png" alt="" />
+          <img class="s-bloom-flower" src="assets/flower-3-lavender.png" alt="" />
+        </div>
+        <div class="month-tag">
+          <span class="tag-num">Month 3</span>
+          <span class="tag-theme">Stronger Together</span>
+        </div>
+        <div class="plant-hint">click to plant</div>
+      </div>
+
+      <div class="pot-slot" data-month="4" data-stage="0"
+           style="left: 58%; top: 19%; width: 16%; height: 47%;"
+           role="button" tabindex="0" aria-label="Plant Month 4: Unbreakable">
+        <div class="pot-stack">
+          <img class="s-empty"  src="assets/pot-empty.png"   alt="" />
+          <img class="s-soil"   src="assets/pot-soil.png"    alt="" />
+          <img class="s-seed"   src="assets/pot-seed.png"    alt="" />
+          <img class="s-sprout" src="assets/pot-sprout.png"  alt="" />
+          <img class="s-bloom-pot"    src="assets/pot-soil.png" alt="" />
+          <img class="s-bloom-flower" src="assets/flower-4-lily.png" alt="" />
+        </div>
+        <div class="month-tag">
+          <span class="tag-num">Month 4</span>
+          <span class="tag-theme">Unbreakable</span>
+        </div>
+        <div class="plant-hint">click to plant</div>
+      </div>
+
+      <div class="pot-slot" data-month="5" data-stage="0"
+           style="left: 76%; top: 19%; width: 16%; height: 47%;"
+           role="button" tabindex="0" aria-label="Plant Month 5: Forever and Always">
+        <div class="pot-stack">
+          <img class="s-empty"  src="assets/pot-empty.png"   alt="" />
+          <img class="s-soil"   src="assets/pot-soil.png"    alt="" />
+          <img class="s-seed"   src="assets/pot-seed.png"    alt="" />
+          <img class="s-sprout" src="assets/pot-sprout.png"  alt="" />
+          <img class="s-bloom-pot"    src="assets/pot-soil.png" alt="" />
+          <img class="s-bloom-flower" src="assets/flower-5-hydrangea.png" alt="" />
+        </div>
+        <div class="month-tag">
+          <span class="tag-num">Month 5</span>
+          <span class="tag-theme">Forever &amp; Always</span>
+        </div>
+        <div class="plant-hint">click to plant</div>
+      </div>
+
+      <!-- ENVELOPE -->
+      <button class="envelope locked" id="envelope" type="button" aria-label="Open the letter"
+              style="left: 36%; top: 72%; width: 28%; height: 20%;">
+        <img class="env-img" src="assets/envelope-closed.png" alt="Sealed letter" />
+        <div class="env-glow" aria-hidden="true"></div>
+      </button>
+
+      <div class="envelope-status" id="envelope-status">Complete the garden to unlock my letter</div>
+    </div>
+  </section>
+
+  <!-- LETTER OVERLAY -->
+  <div class="letter-overlay" id="letter-overlay" aria-hidden="true">
+    <div class="letter-scroll" id="letter-scroll" role="dialog" aria-modal="true">
+      <button class="letter-close" id="letter-close" type="button" aria-label="Close letter">&times;</button>
+      <img class="letter-paper" id="letter-paper"
+           src="assets/letter.png"
+           alt="A handwritten letter for you"
+           onerror="this.classList.add('missing');" />
+      <div class="letter-text" id="letter-text" aria-live="polite"></div>
+      <img class="letter-pen" id="letter-pen" src="assets/pen.png" alt="" aria-hidden="true" />
+      <div class="letter-skip-hint" id="letter-skip-hint">tap to finish writing</div>
+      <div class="letter-fallback">
+        <p>Drop your blank letter paper as <code>letter.png</code> in this folder to show it here.</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
